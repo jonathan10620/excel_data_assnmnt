@@ -1,21 +1,15 @@
-import sre_parse
-from nbformat import write
 import math
 import random
 from openpyxl import load_workbook
 import csv
-from csv import excel, reader
-from pprint import pprint
 from helpers import clean_age, convert_height_to_inches, hide_age
-from random import choice, randrange
+from random import randrange
 from openpyxl.styles import PatternFill
 from datetime import datetime
 from datetime import timedelta
 import datedelta
 
-
 excel_file = "main.xlsx"
-
 
 def write_description_cells(sheet_name, col_name):
     try:
@@ -102,7 +96,6 @@ def write_description_cells(sheet_name, col_name):
 
     wb.save(excel_file)
 
-
 def name_col(sheet_name):
     wb = load_workbook(excel_file)
     ws = wb[sheet_name]
@@ -113,7 +106,6 @@ def name_col(sheet_name):
         ws["J" + str(first.row)].value = str(first.value) + " " + str(last.value)
 
     wb.save(excel_file)
-
 
 def city_county_column(sheet_name):
     wb = load_workbook(excel_file)
@@ -141,7 +133,6 @@ def city_county_column(sheet_name):
             ws["L" + str(zip.row)].value = "N/A"
     wb.save(excel_file)
 
-
 def died(sheet_name):
     wb = load_workbook(excel_file)
     ws = wb[sheet_name]
@@ -160,7 +151,6 @@ def died(sheet_name):
 
     wb.save(excel_file)
 
-
 def newborn(sheet_name):
     wb = load_workbook(excel_file)
     ws = wb[sheet_name]
@@ -175,7 +165,6 @@ def newborn(sheet_name):
                 ws["S" + str(n + 1)].value = "N"
 
     wb.save(excel_file)
-
 
 def salutation(sheet_name):
     wb = load_workbook(excel_file)
@@ -192,7 +181,6 @@ def salutation(sheet_name):
             ws["Z" + str(n + 1)].value = "N/A"
 
     wb.save(excel_file)
-
 
 def DC_date(sheet_name):
     wb = load_workbook(excel_file)
@@ -220,28 +208,27 @@ def DC_date(sheet_name):
 
     wb.save(excel_file)
 
-
 def age(sheet_name):
     wb = load_workbook(excel_file)
     ws = wb[sheet_name]
 
     age_dict = {}
 
-    # with open('dictionary/age.csv') as read_obj:
-    #     csvreader = csv.reader(read_obj)
-    #     for line in csvreader:
-    #         age_dict[int(line[0])] = clean_age(line[1])
+    with open('dictionary/age.csv') as read_obj:
+        csvreader = csv.reader(read_obj)
+        for line in csvreader:
+            age_dict[int(line[0])] = clean_age(line[1])
 
-    # # pat code int, csv code str
-    # for n, cell in enumerate(ws['AF']):
-    #     if sheet_name == 'main' and n == 0:
-    #         continue
-    #     if ws['AG' + str(n+1)].value is None:
-    #         if int(cell.value) in age_dict:
-    #             ws["AG" + str(n+1)].value = age_dict[int(cell.value)]
-    #         else:
-    #             ws["AG" + str(n+1)].value = str(hide_age(int(cell.value))) + ' years'
-    #             ws["AG" + str(n+1)].fill = PatternFill(start_color='00FA92', fill_type='solid')
+    # pat code int, csv code str
+    for n, cell in enumerate(ws['AF']):
+        if sheet_name == 'main' and n == 0:
+            continue
+        if ws['AG' + str(n+1)].value is None:
+            if int(cell.value) in age_dict:
+                ws["AG" + str(n+1)].value = age_dict[int(cell.value)]
+            else:
+                ws["AG" + str(n+1)].value = str(hide_age(int(cell.value))) + ' years'
+                ws["AG" + str(n+1)].fill = PatternFill(start_color='00FA92', fill_type='solid')
 
     for n, (admit, age) in enumerate(zip(ws["AA"], ws["AG"])):
         if age.value == "Age":
@@ -279,7 +266,6 @@ def age(sheet_name):
             ws["BT" + str(n + 1)].value = astro_dict2[int(birthday.strftime("%-m"))]
     wb.save(excel_file)
 
-
 def charge(sheet_name):
     wb = load_workbook(excel_file)
     ws = wb[sheet_name]
@@ -303,7 +289,6 @@ def charge(sheet_name):
 
     wb.save(excel_file)
 
-
 def height(sheet_name):
     wb = load_workbook(excel_file)
     ws = wb[sheet_name]
@@ -323,7 +308,6 @@ def height(sheet_name):
 
     wb.save(excel_file)
 
-
 def bmi_desc(sheet_name):
     wb = load_workbook(excel_file)
     ws = wb[sheet_name]
@@ -342,7 +326,6 @@ def bmi_desc(sheet_name):
 
     wb.save(excel_file)
 
-
 def vitals(sheet_name):
     wb = load_workbook(excel_file)
     ws = wb[sheet_name]
@@ -359,7 +342,6 @@ def vitals(sheet_name):
         elif str(bmi.value) == "Normal":
             HR.value = randrange(60, 80)
     wb.save(excel_file)
-
 
 def temp(sheet_name):
     wb = load_workbook(excel_file)

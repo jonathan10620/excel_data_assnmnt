@@ -1,6 +1,5 @@
 from binascii import a2b_hex
 import csv
-from pprint import pprint
 from random import choice
 
 
@@ -18,7 +17,6 @@ def clean_age(age_range: str):
     random_age = choice([i for i in range(n1, n2 + 1)])
 
     return " ".join([str(random_age), age_list[1]])
-
 
 def hide_age(row):
     age_hidden_dict = {}
@@ -44,7 +42,6 @@ def hide_age(row):
                 )
         except KeyError:
             return choice([x for x in range(age_hidden_dict[int(row)], 119)])
-
 
 def convert_height_to_inches(string):
     stripped = string.strip().split(" ")
