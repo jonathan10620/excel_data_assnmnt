@@ -256,6 +256,7 @@ def age(sheet_name):
             birthday = admit - datedelta.datedelta(years=age)
         # except Exception as e:
         #     birthday = admit - datedelta.datedelta(years=0)
+        
         astro_dict = {
             "Aries": 1,
             "Taurus": 2,
